@@ -1,78 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Playtopia Room Booking</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
     body {
-        font-family: Arial, sans-serif;
         margin: 0;
-        background: #f5f7fa;
-    }
-
-    .tabs {
-        display: flex;
-        background: #0056d2;
-        padding: 10px 15px;
-        gap: 15px;
-    }
-
-    .tab {
-        color: white;
-        padding: 10px 16px;
-        cursor: pointer;
-        border-radius: 6px;
-        background: rgba(255, 255, 255, 0.15);
-        transition: 0.2s;
-    }
-
-    .tab.active {
-        background: white;
-        color: #0056d2;
-        font-weight: bold;
     }
 
     iframe {
         width: 100%;
-        height: 80vh;
         border: none;
+        overflow: hidden !important;
     }
 </style>
-
 </head>
 <body>
 
-<!-- TOP TABS -->
-<div class="tabs">
-    <div class="tab active" data-src="https://airtable.com/embed/appYHmg82gban8DxQ/shrLQPSAzee3X8CKR">
-        Booking Calendar
-    </div>
-    <div class="tab" data-src="https://airtable.com/embed/appYHmg82gban8DxQ/shrx6K82Z9phEN24h">
-        Rooms
-    </div>
-</div>
-
-<!-- MAIN CONTENT IFRAME -->
-<iframe id="airtableFrame" 
+<iframe id="airtableFrame"
         src="https://airtable.com/embed/appYHmg82gban8DxQ/shrLQPSAzee3X8CKR">
 </iframe>
 
 <script>
-    const tabs = document.querySelectorAll(".tab");
-    const iframe = document.getElementById("airtableFrame");
+    function resizeIframe() {
+        const iframe = document.getElementById("airtableFrame");
 
-    tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            // ubah iframe
-            iframe.src = tab.dataset.src;
+        // tinggi maksimal supaya iframe jadi memanjang penuh
+        iframe.style.height = window.innerHeight + "px";
 
-            // ubah active state
-            tabs.forEach(t => t.classList.remove("active"));
-            tab.classList.add("active");
-        });
-    });
+        // coba tambah extra height supaya aman
+        iframe.style.minHeight = (window.innerHeight + 1200) + "px";
+    }
+
+    // resize saat load
+    window.onload = resizeIframe;
+
+    // resize jika layar berubah
+    window.onresize = resizeIframe;
 </script>
 
 </body>
