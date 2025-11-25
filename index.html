@@ -7,7 +7,7 @@
 
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: Helvetica, sans-serif;
         margin: 0;
         background: #f5f7fa;
     }
@@ -36,57 +36,42 @@
 
     iframe {
         width: 100%;
+        height: 100vh; /* responsive seperti Google Calendar */
         border: none;
-        overflow: hidden !important;
     }
 </style>
 
 </head>
 <body>
 
-<!-- TAB MENU -->
+<!-- TOP TABS -->
 <div class="tabs">
-    <div class="tab active" data-src="https://airtable.com/embed/appYHmg82gban8DxQ/shrLQPSAzee3X8CKR">
+    <div class="tab active" 
+         data-src="https://airtable.com/embed/appYHmg82gban8DxQ/shrLQPSAzee3X8CKR?background=gray">
         Booking Calendar
     </div>
-    <div class="tab" data-src="https://airtable.com/embed/appYHmg82gban8DxQ/shrx6K82Z9phEN24h">
+
+    <div class="tab" 
+         data-src="https://airtable.com/embed/appYHmg82gban8DxQ/shrx6K82Z9phEN24h?background=gray">
         Rooms
     </div>
 </div>
 
-<!-- IFRAME -->
-<iframe id="airtableFrame"
-        src="https://airtable.com/embed/appYHmg82gban8DxQ/shrLQPSAzee3X8CKR">
+<!-- MAIN CONTENT IFRAME -->
+<iframe id="airtableFrame" 
+        src="https://airtable.com/embed/appYHmg82gban8DxQ/shrLQPSAzee3X8CKR?background=gray">
 </iframe>
 
 <script>
     const tabs = document.querySelectorAll(".tab");
     const iframe = document.getElementById("airtableFrame");
 
-    // fungsi set tinggi iframe otomatis
-    function resizeIframe() {
-        // tinggi layar
-        const viewportHeight = window.innerHeight;
-
-        // set minimal tinggi iframe supaya panjang penuh
-        iframe.style.height = (viewportHeight + 320) + "px";
-        iframe.style.minHeight = (viewportHeight + 320) + "px";
-    }
-
-    // eksekusi saat load + tiap resize layar
-    window.onload = resizeIframe;
-    window.onresize = resizeIframe;
-
-    // ganti tab
     tabs.forEach(tab => {
         tab.addEventListener("click", () => {
             iframe.src = tab.dataset.src;
 
             tabs.forEach(t => t.classList.remove("active"));
             tab.classList.add("active");
-
-            // resize ulang setelah ganti halaman
-            setTimeout(resizeIframe, 400);
         });
     });
 </script>
